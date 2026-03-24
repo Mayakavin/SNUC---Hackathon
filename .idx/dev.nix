@@ -1,54 +1,43 @@
 { pkgs, ... }: {
-  # High-performance channel for 2026
   channel = "stable-24.11"; 
 
-  # The "Virtual Hardware" - Tools installed in the cloud
   packages = [
-    pkgs.nodejs_22       # Main engine for Frontend & Backend
-    pkgs.python311       # Backup for data scripts
-    pkgs.openssl.bin     # Required for secure AI connections
-    pkgs.git             # For team collaboration
+    pkgs.nodejs_22
+    pkgs.typescript
+    pkgs.openssl.bin
+    pkgs.git
   ];
 
-  # Environment Variables (Non-secret only!)
   env = {
     NODE_ENV = "development";
   };
 
   idx = {
-    # Extensions that make coding "Noob-Friendly"
     extensions = [
-      "google.gemini-cli-vscode-ide-companion" # Your AI tutor
-      "esbenp.prettier-vscode"                # Auto-fixes messy code
-      "dsznajder.es7-react-js-snippets"        # React code shortcuts
-      "rangav.vscode-thunder-client"           # Test APIs without a browser
-      "pkief.material-icon-theme"              # Makes files easy to see
+      "google.gemini-cli-vscode-ide-companion"
+      "esbenp.prettier-vscode"
+      "dsznajder.es7-react-js-snippets"
     ];
 
     workspace = {
-      # This runs ONCE when someone first opens the project
       onCreate = {
-        # Installs all the "Big Three" libraries we discussed
-        install-packages = "npm install express cors dotenv @google/generative-ai axios lucide-react react-router-dom @mui/material @emotion/react @emotion/styled";
+        setup-all = "npm install --prefix backend && npm install --prefix frontend";
       };
       
-      # This runs every time the workspace wakes up
       onStart = {
-        # Automatically starts the development server
-        run-server = "npm run dev";
+        # IMPORTANT: Added '&' at the end so it runs in the background
+        # Also added a cleanup command to kill any old zombie ports first
+        run-backend = "fuser -k 3000/tcp; cd backend && npm run dev -- --host 0.0.0.0 &";
       };
     };
 
-    # Automatically opens the preview window for your website
     previews = {
       enable = true;
       previews = {
         web = {
-          command = ["npm" "run" "dev"];
+          # Frontend runs on $PORT (usually 5173 or 9000)
+          command = ["npm" "run" "dev" "--prefix" "frontend" "--" "--port" "$PORT" "--host" "0.0.0.0"];
           manager = "web";
-          env = {
-            PORT = "$PORT";
-          };
         };
       };
     };
