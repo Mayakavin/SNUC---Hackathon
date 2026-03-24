@@ -23,12 +23,12 @@ function App() {
   }, []);
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px', fontFamily: 'sans-serif' }}>
+    <div style={{ textAlign: 'center', marginTop: '70px', fontFamily: 'sans-serif' }}>
       <h1>Project Status</h1>
       <div style={{ 
         padding: '20px', 
         display: 'inline-block', 
-        backgroundColor: '#eef', 
+        backgroundColor: 'rgb(188, 188, 247)', 
         borderRadius: '10px',
         border: '2px solid #33f' 
       }}>

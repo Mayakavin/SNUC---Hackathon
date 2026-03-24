@@ -10,7 +10,7 @@ app.use(express.json());
 
 // Your new test route
 app.get('/api/hello', (req, res) => {
-  res.json({ message: "Hello from the Backend!" });
+  res.json({ message: "Hello from the Backend I am a fool!" });
 });
 
 app.listen(3000, () => console.log("Server running on port 3000"));

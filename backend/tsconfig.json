@@ -3,7 +3,9 @@
     "target": "es5",
     "module": "commonjs",
     "sourceMap": true,
-    "outDir": "dist",
-    "esModuleInterop": true
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "ignoreDeprecations": "6.0",
   }
 }
