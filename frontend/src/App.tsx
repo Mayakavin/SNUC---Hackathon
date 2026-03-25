@@ -28,7 +28,7 @@ function App() {
       <div style={{ 
         padding: '20px', 
         display: 'inline-block', 
-        backgroundColor: 'rgb(121, 182, 223)', 
+        backgroundColor: 'rgb(239, 156, 237)', 
         borderRadius: '10px',
         border: '2px solid #33f' 
       }}>
